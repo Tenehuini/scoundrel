@@ -58,12 +58,14 @@ class Scoundrel:
                     break
 
         print()
-        print("************************")
         if self.health <= 0:
+            print("************************")
             print("Your health dropped to 0")
             print("YOU LOST THE GAME")
         else:
+            print("################")
             print("YOU WIN THE GAME")
+            print("################")
 
 
     def valid_selection(self, selection):
@@ -78,18 +80,19 @@ class Scoundrel:
 
 
     def manage_selection(self, card):
+        print()
         self.room.remove(card)
         if card.type == POTION:
-            print("Consuming potion...")
+            print("* Consuming potion...")
             if self.potions_this_turn == 0:
                 self.potions_this_turn += 1
                 self.health += card.value
                 if self.health > 20:
                     self.health = 20
             else:
-                print("Already used a potion this turn. Discarding...")
+                print("* Already used a potion this turn. Discarding...")
         elif card.type == WEAPON:
-            print("Equipping weapon")
+            print("* Equipping weapon")
             self.equipped = card
             self.last_slayed = None
         else:
@@ -97,31 +100,31 @@ class Scoundrel:
             if self.last_slayed:
                 # monster cannot be blocked if its value is higher than the last blocked monster
                 if card.value > self.last_slayed:
-                    print(f"Cannot block monster because it is higher value than lastest blocked monster, losing {card.value} health")
+                    print(f"* Cannot block monster because it is higher value than lastest blocked monster, losing {card.value} health")
                     self.health -= card.value
                     return
                         
             # if equipped then decide if use the weapon or not
             if self.equipped:
                 while True:
-                    use_weapon_choice = input("Use your weapon? y/n: ")
+                    use_weapon_choice = input("* Use your weapon? y/n: ")
                     if use_weapon_choice.lower().strip() in "yYnN":
                         if use_weapon_choice.lower().strip() == 'y':
                             self.last_slayed = card.value
                             if self.equipped.value < card.value:
-                                print(f"Monster partially blocked, losing {card.value} - {self.equipped.value} = {card.value - self.equipped.value} damage")
+                                print(f"* Monster partially blocked, losing {card.value} - {self.equipped.value} = {card.value - self.equipped.value} damage")
                                 self.health -= card.value - self.equipped.value
                                 return
                             else:
-                                print("Monster blocked")
+                                print("* Monster blocked")
                                 return
                         else:
-                            print(f"Monster not blocked, losing {card.value} health")
+                            print(f"* Monster not blocked, losing {card.value} health")
                             self.health -= card.value
                             return
 
             # direct damage
-            print(f"Monster damage: {card.value} health")
+            print(f"* Monster damage: {card.value} health")
             self.health -= card.value
 
 
@@ -137,7 +140,7 @@ class Scoundrel:
 
 
     def print_game(self):
-        print("-----------------------------------------------")
+        print("----------------------------------")
         print(f"Cards left in the dungeon: {len(self.dungeon)}")
         print()
 
