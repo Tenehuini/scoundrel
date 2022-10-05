@@ -35,6 +35,7 @@ class Scoundrel:
         self.potions_this_turn = 0
 
         self.game()
+        
 
     def game(self):
         # create the dungeon
