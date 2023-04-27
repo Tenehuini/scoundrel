@@ -206,4 +206,10 @@ def main():
 
 
 if __name__ == "__main__":
+    starting_health = sys.argv[1] if len(sys.argv) == 2 else "20"
+    if starting_health.isdigit():
+        starting_health = int(starting_health)
+    else:
+        starting_health = 20
+    
     main()
