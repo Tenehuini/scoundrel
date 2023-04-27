@@ -26,10 +26,10 @@ POTIONS = [copy(CARD_TYPE(type=POTION, value=v)) for v in range(2, 11)]
 
 class Scoundrel:
 
-    def __init__(self):
+    def __init__(self, starting_health):
         self.dungeon = []
         self.room = []
-        self.health = 20
+        self.health = starting_health
         self.equipped = None
         self.last_slayed = None
         self.potions_this_turn = 0
@@ -193,14 +193,14 @@ def not_valid_initial_choice(choice):
     return True
 
 
-def main():
+def main(starting_health):
     signal.signal(signal.SIGINT, signal_handler)
 
     choice = input("New Game (G) or Read the Rules (R): ")
     while not_valid_initial_choice(choice):
         input()
     if choice.upper() == "G":
-        Scoundrel()
+        Scoundrel(starting_health)
     else:
         print_rules()
 
@@ -212,4 +212,4 @@ if __name__ == "__main__":
     else:
         starting_health = 20
     
-    main()
+    main(starting_health)
